@@ -51,3 +51,4 @@ Create a program with the following function and observe the following condition
   - Build the project with cargo
   - Create a demo example
   - Generate an error message when folder exists
+  - Add the readme.md a blank line
