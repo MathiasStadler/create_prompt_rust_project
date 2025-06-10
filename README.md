@@ -20,7 +20,7 @@ Create a program with the following function and observe the following condition
   - Follow Rust standard formatting
   - Coverage Tools: LLVM Coverage, Coverage Gutters extension
   - Make every thing inside a rust program files, not used any bash script
-  - Create a new project folder inside the /tmp local filesystem
+  - Create a new project folder inside a subfolder of project inside local filesystem
   - The test of the program should cover 100% of the rust code
   - Write for each function , line, region ,blo- All test should covert 100% of the program code and branch a testcase
   - Include comprehensive test cases

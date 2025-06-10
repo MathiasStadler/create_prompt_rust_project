@@ -1,0 +1,1 @@
+/home/trapapa/create_prompt_rust_project/rust-project/target/debug/librust_project.rlib: /home/trapapa/create_prompt_rust_project/rust-project/src/cli.rs /home/trapapa/create_prompt_rust_project/rust-project/src/lib.rs
