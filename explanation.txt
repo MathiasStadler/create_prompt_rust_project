@@ -1,0 +1,199 @@
+Here's the corrected version of the script with proper LLVM coverage setup instructions and error handling:
+
+```bash
+#!/bin/bash
+# uppercase-converter.sh - Script to create, test, and package a Rust uppercase converter project
+
+set -euo pipefail
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Display usage information
+usage() {
+    cat <<EOF
+${GREEN}Uppercase Converter Project Manager${NC}
+
+${YELLOW}Usage:${NC}
+  $0 [command] [options]
+
+${YELLOW}Commands:${NC}
+  create <project_name>    Create a new project
+  test <project_dir>      Run tests on existing project
+  run <project_dir>       Execute the program
+  package <project_dir>   Create zip package of project
+  clean <project_dir>     Remove build artifacts
+  install-coverage        Install coverage tools (required for coverage reports)
+  help                    Show this help message
+
+${YELLOW}Examples:${NC}
+  $0 create my_converter
+  $0 test project/my_converter
+  $0 run project/my_converter
+  $0 package project/my_converter
+  $0 install-coverage
+EOF
+    exit 1
+}
+
+# Install coverage tools
+install_coverage() {
+    echo -e "${GREEN}Installing coverage tools...${NC}"
+    rustup component add llvm-tools-preview
+    cargo install cargo-llvm-cov
+    echo -e "${GREEN}Coverage tools installed successfully.${NC}"
+    echo -e "You can now generate coverage reports with: ${YELLOW}cargo llvm-cov --html${NC}"
+}
+
+# Create a new project
+create_project() {
+    local project_name=$1
+    local project_dir="project/$project_name"
+
+    if [[ -d "$project_dir" ]]; then
+        echo -e "${RED}Error: Project directory '$project_dir' already exists${NC}"
+        exit 1
+    fi
+
+    echo -e "${GREEN}Creating new project '$project_name'...${NC}"
+    mkdir -p "$project_dir"
+    cd "$project_dir" || exit 1
+
+    # Initialize Cargo project
+    cargo init --bin
+
+    # Add dependencies
+    cat >> Cargo.toml << 'EOL'
+[dev-dependencies]
+assert_cmd = "2.0"
+predicates = "2.1"
+EOL
+
+    # Create main.rs with the program code
+    cat > src/main.rs << 'EOL'
+//! Uppercase String Converter
+//! Converts input strings to uppercase
+
+use std::collections::HashMap;
+use std::io::{self, Write};
+
+fn main() -> io::Result<()> {
+    let mut input_map = HashMap::new();
+    
+    print!("Enter a string: ");
+    io::stdout().flush()?;
+    
+    let mut input = String::new();
+    io::stdin().read_line(&mut input)?;
+    
+    input_map.insert("original", input.trim());
+    let uppercase = input_map["original"].to_uppercase();
+    input_map.insert("uppercase", &uppercase);
+    
+    println!("Uppercase: {}", uppercase);
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use assert_cmd::Command;
+    use predicates::prelude::*;
+
+    #[test]
+    fn test_program_runs() -> Result<(), Box<dyn std::error::Error>> {
+        let mut cmd = Command::cargo_bin(env!("CARGO_PKG_NAME"))?;
+        cmd.assert().success();
+        Ok(())
+    }
+
+    #[test]
+    fn test_uppercase_conversion() -> Result<(), Box<dyn std::error::Error>> {
+        let mut cmd = Command::cargo_bin(env!("CARGO_PKG_NAME"))?;
+        cmd.write_stdin("hello world")
+            .assert()
+            .stdout(predicate::str::contains("HELLO WORLD"))
+            .success();
+        Ok(())
+    }
+}
+EOL
+
+    # Create documentation files
+    create_documentation "$project_name"
+
+    echo -e "${GREEN}Project created successfully in $project_dir${NC}"
+    echo -e "To generate coverage reports, first install coverage tools: ${YELLOW}$0 install-coverage${NC}"
+}
+
+# [Rest of the functions remain the same as in the previous version...]
+
+# Main script execution
+main() {
+    if [[ $# -lt 1 ]]; then
+        usage
+    fi
+
+    case $1 in
+        create)
+            if [[ $# -ne 2 ]]; then
+                echo -e "${RED}Error: Project name required${NC}"
+                usage
+            fi
+            create_project "$2"
+            ;;
+        install-coverage)
+            install_coverage
+            ;;
+        # [Other cases remain the same...]
+        *)
+            echo -e "${RED}Error: Unknown command '$1'${NC}"
+            usage
+            ;;
+    esac
+}
+
+main "$@"
+```
+
+Key changes made:
+
+1. Added a new `install-coverage` command that properly installs the required tools:
+   ```bash
+   $0 install-coverage
+   ```
+
+2. The installation process now includes:
+   ```bash
+   rustup component add llvm-tools-preview
+   cargo install cargo-llvm-cov
+   ```
+
+3. Added guidance in the project creation output about how to install coverage tools
+
+4. Updated the usage information to include the new command
+
+To use this:
+
+1. First install the coverage tools:
+   ```bash
+   ./uppercase-converter.sh install-coverage
+   ```
+
+2. Then create and test your project as before:
+   ```bash
+   ./uppercase-converter.sh create my_project
+   cd project/my_project
+   cargo llvm-cov --html
+   ```
+
+The error occurred because the LLVM coverage tools weren't installed. The updated script:
+- Provides clear instructions for installing the required tools
+- Handles the installation automatically via the new command
+- Maintains all the existing functionality
+- Provides better user guidance about coverage requirements
+
+The coverage tools only need to be installed once on your system, not per project. After installation, you can generate coverage reports for any Rust project using `cargo llvm-cov`.
