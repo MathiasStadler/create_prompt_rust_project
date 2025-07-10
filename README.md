@@ -52,3 +52,8 @@ Create a program with the following function and observe the following condition
   - Create a demo example
   - Generate an error message when folder exists
   - Add the readme.md a blank line
+  
+- Format
+  - Generate one script for setup all the things as bash script
+  - Add a parameter for name of folder equal the project name
+  - Add all output to a zip file highest compression level
