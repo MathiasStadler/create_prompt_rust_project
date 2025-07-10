@@ -1,7 +1,9 @@
 #!/bin/bash
 # uppercase-converter-manager.sh - Comprehensive Rust Uppercase Converter Project Manager
 
-set -euo pipefail
+# set -euo pipefail
+set -euxo pipefail
+# set -eux
 
 # Colors for output
 RED='\033[0;31m'

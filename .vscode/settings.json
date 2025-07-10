@@ -1,13 +1,19 @@
 {
     "cSpell.words": [
+        "clippy",
         "héllò",
         "HÉLLÒ",
         "highlightdark",
         "jacoco",
+        "Justfile",
+        "mockall",
         "println",
+        "proptest",
         "rgba",
+        "rstest",
         "rustc",
         "thiserror",
+        "tokio",
         "wörld",
         "WÖRLD"
     ]
