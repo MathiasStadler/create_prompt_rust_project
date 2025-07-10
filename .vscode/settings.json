@@ -12,8 +12,10 @@
         "rgba",
         "rstest",
         "rustc",
+        "Sicherheitsaudit",
         "thiserror",
         "tokio",
+        "Versionierung",
         "wörld",
         "WÖRLD"
     ]

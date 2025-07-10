@@ -5,11 +5,13 @@
 Erstelle ein vollständiges Rust-Projekt mit den folgenden Eigenschaften:
 
 ### 1. Grundlegende Projektstruktur
+
 - **Programmiersprache**: Rust (neueste stabile Version)
 - **Projekttyp**: Vollständige Anwendung mit Bibliotheks- und Binary-Komponenten
 - **Architektur**: Modularer Aufbau mit klarer Trennung der Verantwortlichkeiten
 
 ### 2. Testabdeckung
+
 - **100% Code-Coverage**: Alle Funktionen, Methoden und Code-Pfade müssen getestet werden
 - **Unit Tests**: Für jede einzelne Funktion
 - **Integration Tests**: Für die Interaktion zwischen Modulen
@@ -17,6 +19,7 @@ Erstelle ein vollständiges Rust-Projekt mit den folgenden Eigenschaften:
 - **Benchmark Tests**: Für Performance-kritische Funktionen
 
 ### 3. Abhängigkeiten und Tools
+
 Füge alle notwendigen Dependencies in `Cargo.toml` hinzu:
 
 ```toml
@@ -42,12 +45,15 @@ test-case = "3.0"
 ```
 
 ### 4. Code-Coverage Tools
+
 - **Installation**: `cargo install cargo-tarpaulin`
 - **Konfiguration**: Einrichtung für detaillierte Coverage-Berichte
 - **CI/CD Integration**: Automatische Coverage-Überprüfung
 
 ### 5. Entwicklungstools
+
 Installiere und konfiguriere folgende Tools:
+
 - `cargo-watch` für automatisches Rebuilding
 - `cargo-edit` für Dependency-Management
 - `cargo-audit` für Sicherheitsüberprüfungen
@@ -56,7 +62,9 @@ Installiere und konfiguriere folgende Tools:
 - `clippy` für Linting
 
 ### 6. Projektstruktur
-```
+
+```bash
+
 project_name/
 ├── src/
 │   ├── main.rs
@@ -83,6 +91,7 @@ project_name/
 ```
 
 ### 7. Teststrategien
+
 - **Arrange-Act-Assert Pattern**: Für alle Unit Tests
 - **Given-When-Then**: Für Behavior-driven Tests
 - **Mock-Objekte**: Für externe Abhängigkeiten
@@ -90,18 +99,22 @@ project_name/
 - **Fuzz Testing**: Für Robustheit
 
 ### 8. Fehlerbehandlung
+
 - Verwende `Result<T, E>` für alle fallbaren Operationen
 - Implementiere custom Error-Types mit `thiserror`
 - Nutze `anyhow` für Error-Propagation in Anwendungscode
 
 ### 9. Dokumentation
+
 - **Rust-Doc**: Vollständige API-Dokumentation
 - **Beispiele**: Code-Beispiele in der Dokumentation
 - **README**: Installationsanweisungen und Nutzung
 - **CHANGELOG**: Versionsverlauf
 
 ### 10. CI/CD Pipeline
+
 GitHub Actions Workflow für:
+
 - Kompilierung auf mehreren Rust-Versionen
 - Ausführung aller Tests
 - Code-Coverage-Messung
@@ -112,6 +125,7 @@ GitHub Actions Workflow für:
 ## Spezifische Implementierungsanweisungen
 
 ### Testabdeckung sicherstellen:
+
 ```bash
 # Coverage-Bericht generieren
 cargo tarpaulin --out Html --output-dir coverage/
@@ -130,6 +144,7 @@ cargo fmt --check
 ```
 
 ### Makefile/Justfile für häufige Aufgaben:
+
 ```makefile
 test:
     cargo test --all-features
@@ -150,23 +165,27 @@ all: format lint test coverage audit
 ```
 
 ### Konfigurationsdateien:
+
 - `.rustfmt.toml` für Code-Formatierung
 - `clippy.toml` für Linting-Regeln
 - `tarpaulin.toml` für Coverage-Konfiguration
 
 ## Qualitätssicherung
 
-### Code-Metriken:
+### Code-Metriken
+
 - **Coverage**: Mindestens 95% Zeilencoverage
 - **Cyclomatic Complexity**: Maximal 10 pro Funktion
 - **Dokumentation**: Alle public APIs dokumentiert
 
 ### Performance:
+
 - Benchmark-Tests für kritische Pfade
 - Memory-Leak-Tests
 - Profiling-Integration
 
 ### Sicherheit:
+
 - Regelmäßige Dependency-Audits
 - Keine `unsafe` Code-Blöcke ohne Begründung
 - Input-Validation für alle externen Eingaben
@@ -174,6 +193,7 @@ all: format lint test coverage audit
 ## Automatisierung
 
 Das Projekt soll vollständig automatisiert sein:
+
 - **Pre-commit Hooks**: Automatische Formatierung und Linting
 - **CI Pipeline**: Vollständige Test-Suite bei jedem Push
 - **Release Automation**: Automatische Versionierung und Releases
@@ -182,6 +202,7 @@ Das Projekt soll vollständig automatisiert sein:
 ## Ausführungsscript
 
 Erstelle ein `setup.sh` Script, das alles automatisch einrichtet:
+
 ```bash
 #!/bin/bash
 # Rust-Projekt Setup mit 100% Coverage
